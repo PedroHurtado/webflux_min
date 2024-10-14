@@ -1,0 +1,13 @@
+GET /customers/52803357A
+
+1. prodría ser compartido con una red social
+    si
+
+headers
+    custom-headers
+    GET /customes    
+    x-dni:52803357A
+
+https://stackoverflow.com/questions/3561381/custom-http-headers-naming-conventions
+
+    

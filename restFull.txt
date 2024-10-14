@@ -1,0 +1,165 @@
+pizza={
+    id,
+    name,
+    description,
+    url,
+    price->sum(ingredients) + 20 % beneficios
+    ingredients:[{id,name,price}]
+}
+
+1. http://localhost:8080
+    1. /pizzas->debe de estar pluralizado
+    2. Errores
+        2.1 no se debe de expresar ninguna accion /add /update
+            POST->add
+        2.2 no tenenos que expresar formatos .json,.xml
+            accept
+            content-type
+2. versionado
+    v0->/pizzas
+    v1->/v1/pizzas
+1. Create
+
+path:/pizzas
+verbo:POST
+headers:
+    "content-type": "application/json" | "application/xml" ->body request
+    "accept": "application/json" | "application/xml"->body response
+body -request:
+    {
+        name,
+        description,
+        url,
+        ingredients:[{id}]
+    }
+body - response
+{
+    id
+    price
+    ...(No devuelvo el price ingredient)
+}
+//https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#successful_responses
+OK              ERROR
+201             400 Bad Request | 409
+                401 
+                415  
+                405
+                500 
+                403->404
+
+Todos los verbos deberian de responder un body en el response
+
+201 entidad, 400 mensajes de error de los atributos , 500 accion
+
+2. Update
+path:/pizzas/{id}
+verbo:PUT|PATCH
+    total y parcial
+GET, PUT, DELETE(idempotentes)
+POST, PATCH(no idempotente)
+put vs patch idempotent
+
+    {oldname:'pedro', name:'pedro hurtado'}
+
+headers:
+    "content-type": "application/json" | "application/xml" ->body request
+    "accept": "application/json" | "application/xml"->body response
+body -request:
+    {
+        name,
+        description,
+        url,
+        ingredients:[{id}]
+    }
+body - response
+{
+    id
+    price
+    ...(No devuelvo el price ingredient)
+}
+
+OK                              ERROR
+200(hay un cambio)              400 Bad Request | 409
+                                401 
+                                415  
+                                405
+                                500 
+                                403->404
+204(empty)                      404
+
+3. DELETE
+
+path:/pizzas/{id}
+verbo:DELETE
+
+headers:
+    "content-type": "application/json" | "application/xml" ->body request    
+body -request:
+    [id,id,id]
+body - response
+
+
+OK                              ERROR
+204                             400 Bad Request | 409
+                                401 
+                                415  
+                                405
+                                500 
+                                403->404
+                                404
+GET
+1. registro
+
+path:/pizzas/{id}
+verbo:GET  
+
+headers:
+    "content-type": "application/json" | "application/xml" ->body request
+    "accept": "application/json" | "application/xml"->body response
+
+body - response
+{
+    id
+    price
+    ...(No devuelvo el price ingredient)
+}
+OK                              ERROR
+200                             400 Bad Request | 409
+                                401 
+                                415  
+                                405
+                                500 
+                                403->404
+                                404
+
+GET
+1. multiples registros
+
+path:/pizzas
+verbo:GET  
+
+headers:
+    "content-type": "application/json" | "application/xml" ->body request
+    "accept": "application/json" | "application/xml"->body response
+
+body - response
+[],[{},{},{}]
+OK                              ERROR
+200                             400 Bad Request | 409
+                                401 
+                                415  
+                                405
+                                500 
+                                403->404
+                                404
+QueryString
+    ?name=car&size=25&page=1
+
+Que ocurre con las projecciones
+
+    select * from table
+    slect id,name,price from table
+
+https://www.odata.org/
+https://olingo.apache.org/
+https://graphql.org/

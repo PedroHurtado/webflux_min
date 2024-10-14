@@ -1,0 +1,24 @@
+1. Opcion Cookie
+    
+    1. httponly,secure
+
+2. Token(JWT,session) (XSS)
+    localstorage
+        1. acceso sincrono
+        2. serializacion y deserializacion a string
+        3. No trabaja en worker
+    indexdb
+        1. los accesos son asincronos
+        2. no requiere de serializacion
+        3. Trabaja con worker
+
+https://www.w3.org/TR/CSP3/
+
+explorador
+mobil->no
+server->server no
+
+¿Cuanto debe de durar un token JWT?
+
+3600s (60x60) 1 hora
+/refresh
